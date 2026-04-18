@@ -22,20 +22,19 @@
       padding: 48px 0 36px;
     }
     .header-icon {
-      width: 96px;
-      height: 96px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
       margin: 0 auto 20px;
       box-shadow: 0 4px 24px rgba(15,52,96,0.25);
+      border: 3px solid #e2e8f0;
     }
-    .header-icon svg {
-      width: 52px;
-      height: 52px;
-      fill: #e0e8f5;
+    .header-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
     }
     .header h1 {
       font-size: 2rem;
@@ -109,40 +108,113 @@
       text-align: center;
     }
 
-    /* Project cards */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
+    /* Accordion sections */
+    .accordion {
       margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .project-card {
+
+    .accordion-item {
       background: #fff;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
-      padding: 22px 20px;
+      overflow: hidden;
+      transition: box-shadow 0.15s;
+    }
+    .accordion-item:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 22px;
       cursor: pointer;
-      transition: box-shadow 0.15s, transform 0.15s;
+      user-select: none;
     }
-    .project-card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.10);
-      transform: translateY(-3px);
+
+    .accordion-header .card-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
     }
-    .project-card .card-icon {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
+
+    .accordion-header .header-text {
+      flex: 1;
     }
-    .project-card h2 {
+    .accordion-header h2 {
       font-size: 1rem;
       font-weight: 700;
-      margin: 0 0 6px;
+      margin: 0 0 3px;
       color: #1a1a2e;
     }
-    .project-card p {
+    .accordion-header p {
       font-size: 0.82rem;
       color: #666;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
+    }
+
+    .accordion-chevron {
+      font-size: 0.75rem;
+      color: #aaa;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 22px 22px;
+      border-top: 1px solid #f0f0f5;
+    }
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* Sub-section label inside accordion */
+    .sub-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: #aaa;
+      margin: 16px 0 10px;
+    }
+
+    /* Project image grid */
+    .project-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .project-img-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e8edf3;
+      background: #f9fafb;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .project-img-card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+    .project-img-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .project-img-card .img-caption {
+      padding: 9px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #444;
     }
   </style>
 </head>
@@ -151,18 +223,14 @@
   <!-- Header -->
   <div class="header">
     <div class="header-icon">
-      <!-- Person silhouette SVG -->
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="20" r="12"/>
-        <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24H8z"/>
-      </svg>
+      <img src="profile.png" alt="Roberto Nicolau de Abreu" />
     </div>
     <h1>Roberto Nicolau de Abreu</h1>
-    <p class="tagline">Actuarial &middot; Machine Learning &middot; Spatial Analytics &middot; Computer Vision</p>
+    <p class="tagline">Actuarial &middot; Machine Learning &middot; Spatial Analytics &middot; Computer Vision &middot; AI &middot; Agentic Services &middot; Chess Enthusiast</p>
   </div>
 
   <!-- Programming Languages -->
-  <div class="section-label">Languages</div>
+  <div class="section-label">Programming Languages</div>
   <div class="tech-row">
     <div class="tech-item">
       <i class="devicon-python-plain colored"></i>
@@ -198,59 +266,184 @@
     </div>
   </div>
 
-  <!-- Libraries -->
-  <div class="section-label">Libraries</div>
+  <!-- Cloud Technologies -->
+  <div class="section-label">Cloud Technologies</div>
+  <div class="tech-row">
+    <div class="tech-item">
+      <i class="devicon-azure-plain colored"></i>
+      <span class="tech-name">Azure DevOps</span>
+    </div>
+    <div class="tech-item">
+      <div class="badge-icon" style="background: #ff3621; font-size:0.58rem;">Data<br>bricks</div>
+      <span class="tech-name">Databricks</span>
+    </div>
+    <div class="tech-item">
+      <div class="badge-icon" style="background: #0078d4; font-size:0.58rem;">Syn<br>apse</div>
+      <span class="tech-name">Synapse</span>
+    </div>
+    <div class="tech-item">
+      <i class="devicon-github-original"></i>
+      <span class="tech-name">GitHub</span>
+    </div>
+  </div>
+
+  <!-- Common Libraries -->
+  <div class="section-label">Common Libraries</div>
   <div class="tech-row">
     <div class="tech-item">
       <i class="devicon-pytorch-plain colored"></i>
       <span class="tech-name">PyTorch</span>
     </div>
     <div class="tech-item">
-      <i class="devicon-nvidia-plain colored"></i>
-      <span class="tech-name">CUDA</span>
+      <div class="badge-icon" style="background: #76b900; font-size:0.58rem;">CuPy</div>
+      <span class="tech-name">CuPy</span>
     </div>
     <div class="tech-item">
-      <div class="badge-icon" style="background: #1a6b8a; width:28px; height:28px; font-size:0.55rem;">
-        Stats<br>models
-      </div>
+      <div class="badge-icon" style="background: #7b2fbe; font-size:0.58rem;">cuML</div>
+      <span class="tech-name">cuML</span>
+    </div>
+    <div class="tech-item">
+      <div class="badge-icon" style="background: #1a6b8a; font-size:0.58rem;">Stats<br>models</div>
       <span class="tech-name">Statsmodels</span>
     </div>
     <div class="tech-item">
-      <div class="badge-icon" style="background: #2e7d32; width:28px; height:28px; font-size:0.58rem;">
-        Geo<br>Pandas
-      </div>
+      <div class="badge-icon" style="background: #2e7d32; font-size:0.58rem;">Geo<br>Pandas</div>
       <span class="tech-name">GeoPandas</span>
     </div>
     <div class="tech-item">
-      <i class="devicon-scikitlearn-plain colored"></i>
+      <div class="badge-icon" style="background: #f89939; font-size:0.58rem;">sklearn</div>
       <span class="tech-name">scikit-learn</span>
     </div>
   </div>
 
   <!-- Projects -->
   <div class="section-label">Projects</div>
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="card-icon">👁️</div>
-      <h2>Vision Networks</h2>
-      <p>Computer vision pipelines for extracting objects, events, and features from video.</p>
+  <div class="accordion">
+
+    <!-- Vision Networks -->
+    <div class="accordion-item open" id="section-vision">
+      <div class="accordion-header" onclick="toggle('section-vision')">
+        <div class="card-icon">👁️</div>
+        <div class="header-text">
+          <h2>Vision Networks</h2>
+          <p>Computer vision pipelines for extracting objects, events, and features from video.</p>
+        </div>
+        <span class="accordion-chevron">&#9660;</span>
+      </div>
+      <div class="accordion-body">
+        <div class="sub-label">Example Projects</div>
+        <div class="project-images">
+          <div class="project-img-card">
+            <img src="TennisVisionNetwork.png" alt="Tennis Vision Network" />
+            <div class="img-caption">Tennis Vision Network</div>
+          </div>
+          <div class="project-img-card">
+            <img src="CarVisionNetwork.jpg" alt="Car Vision Network" />
+            <div class="img-caption">Car Vision Network</div>
+          </div>
+          <div class="project-img-card">
+            <img src="CarPartVisionNetwork.png" alt="Car Part Vision Network" />
+            <div class="img-caption">Car Part Detection</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-      <div class="card-icon">🗺️</div>
-      <h2>Spatial Analytics</h2>
-      <p>Interactive geospatial tools for claims, catastrophe events, and map-based analytics.</p>
+
+    <!-- Spatial Analytics -->
+    <div class="accordion-item open" id="section-spatial">
+      <div class="accordion-header" onclick="toggle('section-spatial')">
+        <div class="card-icon">🗺️</div>
+        <div class="header-text">
+          <h2>Spatial Analytics</h2>
+          <p>Interactive geospatial tools for claims, catastrophe events, and map-based analytics.</p>
+        </div>
+        <span class="accordion-chevron">&#9660;</span>
+      </div>
+      <div class="accordion-body">
+        <div class="sub-label">Example Projects</div>
+        <div class="project-images">
+          <div class="project-img-card">
+            <img src="SatelliteTrafficNetworks.png" alt="Satellite Traffic Networks" />
+            <div class="img-caption">Satellite Traffic Networks</div>
+          </div>
+          <div class="project-img-card">
+            <img src="SpatialIndexh3Cells.webp" alt="Spatial Index H3 Cells" />
+            <div class="img-caption">Spatial Index H3 Cells</div>
+          </div>
+          <div class="project-img-card">
+            <img src="SatellitePoolImageryDetection.jpg" alt="Satellite Pool Imagery Detection" />
+            <div class="img-caption">Pool Imagery Detection</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-      <div class="card-icon">📊</div>
-      <h2>Insurance Modelling</h2>
-      <p>Actuarial and predictive models for pricing, reserving, and risk assessment.</p>
+
+    <!-- Insurance Modelling -->
+    <div class="accordion-item open" id="section-insurance">
+      <div class="accordion-header" onclick="toggle('section-insurance')">
+        <div class="card-icon">📊</div>
+        <div class="header-text">
+          <h2>Insurance Modelling</h2>
+          <p>Actuarial and predictive models for pricing, reserving, and risk assessment.</p>
+        </div>
+        <span class="accordion-chevron">&#9660;</span>
+      </div>
+      <div class="accordion-body">
+        <div class="sub-label">Example Projects</div>
+        <div class="project-images">
+          <div class="project-img-card">
+            <img src="AgeClaimFrequency.svg" alt="LLM Model Explainer" />
+            <div class="img-caption">LLM Model Explainer</div>
+          </div>
+          <div class="project-img-card">
+            <img src="ActuarialCANNNetwork.jpg" alt="CANN Network" />
+            <div class="img-caption">CANN Network</div>
+          </div>
+          <div class="project-img-card">
+            <img src="ActuarialSHAPValues.png" alt="SHAP Values" />
+            <div class="img-caption">SHAP Values</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-      <div class="card-icon">📱</div>
-      <h2>App Development</h2>
-      <p>Full-stack applications and tooling spanning mobile, web, and desktop platforms.</p>
+
+    <!-- App Development -->
+    <div class="accordion-item open" id="section-apps">
+      <div class="accordion-header" onclick="toggle('section-apps')">
+        <div class="card-icon">📱</div>
+        <div class="header-text">
+          <h2>App Development</h2>
+          <p>Full-stack applications and tooling spanning mobile, web, and desktop platforms.</p>
+        </div>
+        <span class="accordion-chevron">&#9660;</span>
+      </div>
+      <div class="accordion-body">
+        <div class="sub-label">Example Projects</div>
+        <div class="project-images">
+          <div class="project-img-card">
+            <img src="AppFloodModels.png" alt="Flood Models App" />
+            <div class="img-caption">Flood Models</div>
+          </div>
+          <div class="project-img-card">
+            <img src="AppSpatialApp.png" alt="Spatial App" />
+            <div class="img-caption">Spatial App</div>
+          </div>
+          <div class="project-img-card">
+            <img src="AppModelling.png" alt="Modelling App" />
+            <div class="img-caption">Modelling App</div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
+
+  <script>
+    function toggle(id) {
+      const item = document.getElementById(id);
+      item.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
