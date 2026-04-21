@@ -216,6 +216,62 @@
       font-weight: 600;
       color: #444;
     }
+
+    /* Video card */
+    .project-video-card {
+      cursor: pointer;
+      position: relative;
+    }
+    .project-video-card video {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .project-video-card .play-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Lightbox */
+    #video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #video-modal.active {
+      display: flex;
+    }
+    #video-modal video {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+    }
+    #modal-close {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+    #modal-close:hover { opacity: 1; }
   </style>
 </head>
 <body>
@@ -333,16 +389,19 @@
       <div class="accordion-body">
         <div class="sub-label">Example Projects</div>
         <div class="project-images">
-          <div class="project-img-card">
-            <img src="TennisVisionNetwork.png" alt="Tennis Vision Network" />
+          <div class="project-img-card project-video-card" onclick="openVideo('tennis')">
+            <video src="TennisVisionNetworkPreview.mp4" poster="TennisVisionNetwork.png" muted autoplay loop playsinline preload="auto"></video>
+            <span class="play-badge">▶ FULL VIEW</span>
             <div class="img-caption">Tennis Vision Network</div>
           </div>
-          <div class="project-img-card">
-            <img src="CarVisionNetwork.jpg" alt="Car Vision Network" />
-            <div class="img-caption">Car Vision Network</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('selfdriving')">
+            <video src="SelfDrivingVisionNetworkPreview.mp4" poster="CarVisionNetwork.jpg" muted autoplay loop playsinline></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Self-Driving Vision Network</div>
           </div>
-          <div class="project-img-card">
-            <img src="CarPartVisionNetwork.png" alt="Car Part Vision Network" />
+          <div class="project-img-card project-video-card" onclick="openVideo('carparts')">
+            <video src="CarPartsVisionNetwork.mp4" poster="CarPartVisionNetwork.png" muted autoplay loop playsinline></video>
+            <span class="play-badge">▶ FULL VIEW</span>
             <div class="img-caption">Car Part Detection</div>
           </div>
         </div>
@@ -428,9 +487,10 @@
             <img src="AppSpatialApp.png" alt="Spatial App" />
             <div class="img-caption">Spatial App</div>
           </div>
-          <div class="project-img-card">
-            <img src="AppModelling.png" alt="Modelling App" />
-            <div class="img-caption">Modelling App</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('actuarial')">
+            <video src="ActuarialModellingApp.webm" muted autoplay loop playsinline></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Actuarial Modelling App</div>
           </div>
         </div>
       </div>
@@ -438,11 +498,62 @@
 
   </div>
 
+  <!-- Video lightbox -->
+  <div id="video-modal" onclick="closeVideo()">
+    <span id="modal-close" onclick="closeVideo()">&times;</span>
+    <video id="modal-video" controls onclick="event.stopPropagation()"></video>
+  </div>
+
   <script>
+    const VIDEOS = {
+      actuarial:   'ActuarialModellingApp.webm',
+      tennis:      'TennisVisionNetwork.mp4',
+      carparts:    'CarPartsVisionNetwork.mp4',
+      selfdriving: 'SelfDrivingVisionNetwork.mp4',
+    };
+
     function toggle(id) {
       const item = document.getElementById(id);
       item.classList.toggle('open');
+      if (item.classList.contains('open')) {
+        setTimeout(() => {
+          item.querySelectorAll('.project-video-card video').forEach(v => {
+            v.load();
+            v.play().catch(() => {});
+          });
+        }, 50);
+      }
     }
+
+    function openVideo(key) {
+      const modal = document.getElementById('video-modal');
+      const vid = document.getElementById('modal-video');
+      vid.src = VIDEOS[key];
+      modal.classList.add('active');
+      vid.currentTime = 0;
+      vid.play();
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('video-modal');
+      const vid = document.getElementById('modal-video');
+      modal.classList.remove('active');
+      vid.pause();
+      vid.src = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeVideo();
+    });
+
+    function playVisibleVideos() {
+      document.querySelectorAll('.accordion-item.open .project-video-card video').forEach(v => {
+        v.load();
+        v.play().catch(() => {});
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', playVisibleVideos);
   </script>
 
 </body>
