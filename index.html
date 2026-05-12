@@ -395,12 +395,12 @@
             <div class="img-caption">Tennis Vision Network</div>
           </div>
           <div class="project-img-card project-video-card" onclick="openVideo('selfdriving')">
-            <video src="SelfDrivingVisionNetworkPreview.mp4" poster="CarVisionNetwork.jpg" muted autoplay loop playsinline></video>
+            <video src="DrivingObjectDetection.mp4" poster="CarVisionNetwork.jpg" muted autoplay loop playsinline></video>
             <span class="play-badge">▶ FULL VIEW</span>
             <div class="img-caption">Self-Driving Vision Network</div>
           </div>
           <div class="project-img-card project-video-card" onclick="openVideo('carparts')">
-            <video src="CarPartsVisionNetwork.mp4" poster="CarPartVisionNetwork.png" muted autoplay loop playsinline></video>
+            <video src="CarPartsAutomation.mp4" poster="CarPartVisionNetwork.png" muted autoplay loop playsinline></video>
             <span class="play-badge">▶ FULL VIEW</span>
             <div class="img-caption">Car Part Detection</div>
           </div>
@@ -421,17 +421,20 @@
       <div class="accordion-body">
         <div class="sub-label">Example Projects</div>
         <div class="project-images">
-          <div class="project-img-card">
-            <img src="SatelliteTrafficNetworks.png" alt="Satellite Traffic Networks" />
-            <div class="img-caption">Satellite Traffic Networks</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('satellite')">
+            <video src="SatelliteImagery.webm" muted autoplay loop playsinline></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Satellite Imagery App</div>
           </div>
-          <div class="project-img-card">
-            <img src="SpatialIndexh3Cells.webp" alt="Spatial Index H3 Cells" />
-            <div class="img-caption">Spatial Index H3 Cells</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('mapping')">
+            <video src="MapServices.webm" poster="AgeClaimFrequency.svg" muted autoplay loop playsinline preload="auto"></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Mapping App</div>
           </div>
-          <div class="project-img-card">
-            <img src="SatellitePoolImageryDetection.jpg" alt="Satellite Pool Imagery Detection" />
-            <div class="img-caption">Pool Imagery Detection</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('flood')">
+            <video src="FloodModel.webm" poster="AgeClaimFrequency.svg" muted autoplay loop playsinline preload="auto"></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Flood Model</div>
           </div>
         </div>
       </div>
@@ -443,20 +446,22 @@
         <div class="card-icon">📊</div>
         <div class="header-text">
           <h2>Insurance Modelling</h2>
-          <p>Actuarial and predictive models for pricing, reserving, and risk assessment.</p>
+          <p>Actuarial and predictive models for pricing and risk assessment.</p>
         </div>
         <span class="accordion-chevron">&#9660;</span>
       </div>
       <div class="accordion-body">
         <div class="sub-label">Example Projects</div>
         <div class="project-images">
-          <div class="project-img-card">
-            <img src="AgeClaimFrequency.svg" alt="LLM Model Explainer" />
+          <div class="project-img-card project-video-card" onclick="openVideo('LLMModelExplainer')">
+            <video src="LLMExplainer.webm" poster="AgeClaimFrequency.svg" muted autoplay loop playsinline preload="auto"></video>
+            <span class="play-badge">▶ FULL VIEW</span>
             <div class="img-caption">LLM Model Explainer</div>
           </div>
-          <div class="project-img-card">
-            <img src="ActuarialCANNNetwork.jpg" alt="CANN Network" />
-            <div class="img-caption">CANN Network</div>
+          <div class="project-img-card project-video-card" onclick="openVideo('actuarial')">
+            <video src="ActuarialModellingApp.webm" muted autoplay loop playsinline></video>
+            <span class="play-badge">▶ FULL VIEW</span>
+            <div class="img-caption">Actuarial Modelling App</div>
           </div>
           <div class="project-img-card">
             <img src="ActuarialSHAPValues.png" alt="SHAP Values" />
@@ -465,36 +470,7 @@
         </div>
       </div>
     </div>
-
-    <!-- App Development -->
-    <div class="accordion-item open" id="section-apps">
-      <div class="accordion-header" onclick="toggle('section-apps')">
-        <div class="card-icon">📱</div>
-        <div class="header-text">
-          <h2>App Development</h2>
-          <p>Full-stack applications and tooling spanning mobile, web, and desktop platforms.</p>
-        </div>
-        <span class="accordion-chevron">&#9660;</span>
-      </div>
-      <div class="accordion-body">
-        <div class="sub-label">Example Projects</div>
-        <div class="project-images">
-          <div class="project-img-card">
-            <img src="AppFloodModels.png" alt="Flood Models App" />
-            <div class="img-caption">Flood Models</div>
-          </div>
-          <div class="project-img-card">
-            <img src="AppSpatialApp.png" alt="Spatial App" />
-            <div class="img-caption">Spatial App</div>
-          </div>
-          <div class="project-img-card project-video-card" onclick="openVideo('actuarial')">
-            <video src="ActuarialModellingApp.webm" muted autoplay loop playsinline></video>
-            <span class="play-badge">▶ FULL VIEW</span>
-            <div class="img-caption">Actuarial Modelling App</div>
-          </div>
-        </div>
-      </div>
-    </div>
+ 
 
   </div>
 
@@ -508,8 +484,12 @@
     const VIDEOS = {
       actuarial:   'ActuarialModellingApp.webm',
       tennis:      'TennisVisionNetwork.mp4',
-      carparts:    'CarPartsVisionNetwork.mp4',
-      selfdriving: 'SelfDrivingVisionNetwork.mp4',
+      carparts:    'CarPartsAutomation.mp4',
+      selfdriving: 'DrivingObjectDetection.mp4',
+      LLMModelExplainer: 'LLMExplainer.webm',
+      satellite: 'SatelliteImagery.webm',
+      mapping: 'MapServices.webm',
+      flood: 'FloodModel.webm'
     };
 
     function toggle(id) {
